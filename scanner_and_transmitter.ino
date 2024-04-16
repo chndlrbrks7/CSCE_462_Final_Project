@@ -9,7 +9,7 @@ byte nuidPICC[4];
  
 void setup(void) 
 {
- Serial.begin(1200);
+ Serial.begin(9600);
  nfc.begin();
 }
  
@@ -23,7 +23,7 @@ void readNFC()
 
   if (nfc.tagPresent())
   {
-    Serial.print('1');
+    Serial.print("<bang>");
     NfcTag tag = nfc.read();
     tagId = tag.getUidString();
   }
