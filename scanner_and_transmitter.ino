@@ -9,7 +9,7 @@ byte nuidPICC[4];
  
 void setup(void) 
 {
- Serial.begin(1200);
+ Serial.begin(9600);
  nfc.begin();
 }
  
