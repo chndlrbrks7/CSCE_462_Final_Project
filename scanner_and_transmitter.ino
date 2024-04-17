@@ -23,9 +23,19 @@ void readNFC()
 
   if (nfc.tagPresent())
   {
-    Serial.print("<bang>");
+    
     NfcTag tag = nfc.read();
-    tagId = tag.getUidString();
+    NdefMessage message = tag.getNdefMessage();
+    NdefRecord record = message.getRecord(0);
+    int payloadLength = record.getPayloadLength();
+    byte payload[payloadLength];
+    record.getPayload(payload);
+    String payloadAsString = "";x
+    for (int c = 3; c < payloadLength; c++) {
+      payloadAsString += (char)payload[c];
+    }
+    Serial.println("<" + payloadAsString + ">");
+
   }
   delay(1000);
 }
