@@ -116,6 +116,7 @@ void loop() {
     game_loop();
 
     dealer_score = dealer_cards[0] + dealer_cards[1];
+    
     if(dealer_score > 21 && dealer_ace) {
         dealer_score -= 10;
     }
@@ -197,7 +198,7 @@ void pushPlayerCard() {
         player_cards.push_back(atoi(receivedChars));
         player_score += atoi(receivedChars);
     }
-    else if (receivedChars[0] == 'A') { //ace case
+    else if (atoi(receivedChars) == 11) { //ace case
         if(player_score + 11 > 21) {
             player_cards.push_back(1);
             player_score += 1;
@@ -216,7 +217,7 @@ void pushDealerCard() {
     if(atoi(receivedChars) <= 10) {
         dealer_cards.push_back(atoi(receivedChars));
     }
-    else if (receivedChars[0] == 'A') { //ace case
+    else if (atoi(receivedChars) == 11) { //ace case
         dealer_cards.push_back(11);
         dealer_ace = true;
     }
