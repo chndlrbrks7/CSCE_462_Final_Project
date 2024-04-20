@@ -3,40 +3,33 @@
 #include <stdlib.h>
 
 int hard_hand_decision_matrix[22][13] = {
-	{-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{-1,-1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
-	{-1,-1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1},
-	{-1,-1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
+  {-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+  {-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+  {-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+  {-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+  {-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+  {-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+  {-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+  {-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+  {-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+  {-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+  {-1,-1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1},
+  {-1,-1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1},
+  {-1,-1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
+  {-1,-1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 };
 
+
 int soft_hand_decision_matrix[22][13] = {
-	{-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{-1,-1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
@@ -49,14 +42,22 @@ int soft_hand_decision_matrix[22][13] = {
 	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-	{-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
+  {-1,-1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {-1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
 const byte numChars = 32;
 char receivedChars[numChars];
 
-int player_cards_array[5];
-int dealer_cards_array[2];
+int player_cards_array[20];
+int dealer_cards_array[20];
 
 Vector<int> player_cards(player_cards_array);
 Vector<int> dealer_cards(dealer_cards_array);
@@ -112,25 +113,27 @@ void loop() {
 }
 
 void start_blackjack() {
-    matrix.print("Player's turn");
+    matrix.print("Your\nturn");
     recv_card();
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     pushPlayerCard();
     
     matrix.setCursor(1, 0);
-    matrix.print("Dealer's turn");
+    matrix.print("House\nturn");
     recv_card();
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     pushDealerCard();
 
     matrix.setCursor(1, 0);
-    matrix.print("Player's Turn");
+    matrix.print("Your\nturn");
+    SerialUSB.println(player_score, dealer_score);
+
     recv_card();
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     pushPlayerCard();
 
     matrix.setCursor(1, 0);
-    matrix.print("Dealer's turn");
+    matrix.print("House\nturn");
     recv_card();
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     pushDealerCard();
@@ -138,13 +141,17 @@ void start_blackjack() {
     dealer_score = dealer_cards[0];
 
     game_loop();
+    
 
     dealer_score = dealer_cards[0] + dealer_cards[1];
 
     while(dealer_score < 17) {
-      matrix.print("Dealer's turn");
+      matrix.setCursor(1, 0);
+      matrix.print("House\nturn");
       recv_card();
       pushDealerCard();
+      matrix.fillScreen(matrix.Color333(0, 0, 0));
+      delay(3000);
     }
 
     if(dealer_score > 21 && dealer_ace) {
@@ -152,37 +159,41 @@ void start_blackjack() {
     }
 
 
-    if (player_score  > 21 && dealer_score > 21){
-        //both bust
+    if (player_score > 21){
         matrix.setCursor(1, 0);
-        matrix.print("You lose!");
+        matrix.print("You\nlose!");
     }
-    else if (player_score < 21 && dealer_score < player_score) {
+    else if (player_score <= 21 && dealer_score < player_score) {
         //player wins
         matrix.setCursor(1, 0);
-        matrix.print("You win!");
+        matrix.print("You\nwin!");
     }
-    else if (player_score > 21 && dealer_score < 21) {
-        //player busts
-        matrix.setCursor(1, 0);
-        matrix.print("You lose!");
-    }
-    else if (player_score > 21 && dealer_score > player_score) {
-        //dealer wins
-        matrix.setCursor(1, 0);
-        matrix.print("You lose!");
-    }
-    else if (dealer_score > 21 && player_score < 21) {
+    else if (dealer_score >= 21 && player_score <= 21) {
         //dealer busts, player wins
         matrix.setCursor(1, 0);
-        matrix.print("You lose!");
+        matrix.print("You\nwin!");
+    }
+    else if (player_score <= 21 && player_score < dealer_score ) {
+      matrix.setCursor(1,0);
+      matrix.print("You\nlose!");
+    }
+    else if (dealer_score == player_score) {
+      matrix.setCursor(1, 0);
+      matrix.print("Draw");
+    }
+    else {
+      char message[30];
+      matrix.setCursor(1, 0);
+      sprintf(message, "%d\n%d", player_score, dealer_score);
+      matrix.print(message);
     }
 }
 
 void start_war() {
     char message[30];
     for (size_t i = 0; i < 26; i++) {
-        sprintf(message, "Dealer Cards Dealt: %d/26", (int)(i + 1));
+        matrix.setCursor(1, 0);
+        sprintf(message, "Cards\nDealt\n%d/26", (int)(i));
         matrix.print(message);
         recv_card();
         matrix.fillScreen(matrix.Color333(0, 0, 0));
@@ -191,7 +202,7 @@ void start_war() {
 
     while (!war && !dealer_cards_war.empty() && num_player_cards > 0) {
         matrix.setCursor(1, 0);
-        matrix.print("Play your card faceup:");      
+        matrix.print("Play your card:");      
         recv_card();
         matrix.fillScreen(matrix.Color333(0, 0, 0));
         pushWarPlayerCard();
@@ -199,7 +210,7 @@ void start_war() {
 
         int dealerCardUp = dealer_cards_war.front();
         matrix.setCursor(1, 0);
-        sprintf(message, "Dealer Played: %d", dealerCardUp);
+        sprintf(message, "%d\nvs\n%d", playerCardUp, dealerCardUp);
         matrix.print(message);
         delay(3000);    
         matrix.fillScreen(matrix.Color333(0, 0, 0));
@@ -216,8 +227,8 @@ void start_war() {
                 for (size_t i = 0; i < deskCards.size(); i++) {
                   player_cards_war.push_back(deskCards.at(i));
                 }
-                matrix.setCursor(1, 0);
-                matrix.print("You won the battle");      
+                matrix.setCursor(0, 1);
+                matrix.print("You\nwin\nthis\nround");      
                 delay(3000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
                 num_player_cards += deskCards.size();
@@ -228,14 +239,14 @@ void start_war() {
                 }
             }
             matrix.setCursor(1, 0);
-            matrix.print("The battle continues");      
+            matrix.print("The\ngame\ngoes\non");      
             delay(3000);
             matrix.fillScreen(matrix.Color333(0, 0, 0));
             deskCards.clear();
         }
         else {
           matrix.setCursor(1, 0);
-          matrix.print("IT'S WAR TIME");      
+          matrix.print("IT'S\nWAR\nTIME");      
           delay(3000);
           matrix.fillScreen(matrix.Color333(0, 0, 0));
           war = true;
@@ -268,7 +279,7 @@ void start_war() {
 
         int dealerCardUp = dealer_cards_war.front();
         matrix.setCursor(1, 0);
-        sprintf(message, "Dealer Played: %d", dealerCardUp);
+        sprintf(message, "%d\nvs\n%d", playerCardUp, dealerCardUp);
         matrix.print(message);
         delay(3000);    
         matrix.fillScreen(matrix.Color333(0, 0, 0));
@@ -285,7 +296,7 @@ void start_war() {
                   player_cards_war.push_back(deskCards.at(i));
                 }
                 matrix.setCursor(1, 0);
-                matrix.print("You won this play");      
+                matrix.print("You\nwon\nthis\nwar");      
                 delay(3000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
                 num_player_cards += deskCards.size();
@@ -295,15 +306,16 @@ void start_war() {
                   dealer_cards_war.push_back(deskCards.at(i));
                 }
                 matrix.setCursor(1, 0);
-                matrix.print("You lost this play");      
+                matrix.print("You\nlost\nthis\nwar");      
                 delay(3000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
             }
             deskCards.clear();
+            war = false;
         }
         else {
           matrix.setCursor(1, 0);
-          matrix.print("Tied, let's keep playing");      
+          matrix.print("IT'S\nWAR\nTIME");      
           delay(3000);
           matrix.fillScreen(matrix.Color333(0, 0, 0));
         }
@@ -311,13 +323,13 @@ void start_war() {
 
     if (dealer_cards_war.empty()) {
           matrix.setCursor(1, 0);
-          matrix.print("You won!");      
+          matrix.print("You\nwon!");      
           delay(3000);
           matrix.fillScreen(matrix.Color333(0, 0, 0));
     }
     else {
           matrix.setCursor(1, 0);
-          matrix.print("You lost!");      
+          matrix.print("You\nlost!");      
           delay(3000);
           matrix.fillScreen(matrix.Color333(0, 0, 0));
     }
@@ -384,6 +396,7 @@ void pushPlayerCard() {
     }
     else {
         player_cards.push_back(10);
+        player_score += 10;
     }
 }
 
@@ -391,7 +404,7 @@ void pushDealerCard() {
   int value = 0;
   if(atoi(receivedChars) <= 10) {
       dealer_cards.push_back(atoi(receivedChars));
-      value = atoi(recievedChars);
+      value = atoi(receivedChars);
   }
   else if (atoi(receivedChars) == '11') { //ace case
       dealer_cards.push_back(11);
@@ -408,7 +421,7 @@ void pushDealerCard() {
 }
 
 void pushWarDealerCard() {
-  dealer_cards_war.push_back(atoi(receievedChars));
+  dealer_cards_war.push_back(atoi(receivedChars));
 }
 
 void pushWarPlayerCard() {
@@ -427,19 +440,22 @@ void game_loop() {
         switch(hard_hand_decision_matrix[player_score][dealer_score]) {
             case 0:
                 matrix.setCursor(1, 0);
-                matrix.print("You should stand");
+                matrix.print("Stand");
                 delay(5000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
-                break;
+                return;
             default:
                 matrix.setCursor(1, 0);
-                matrix.print("You should hit");
+                matrix.print("Hit");
                 delay(5000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
+                matrix.setCursor(1, 0);
+                matrix.println("Your\nturn");
                 recv_card();
                 pushPlayerCard();
+                matrix.fillScreen(matrix.Color333(0, 0, 0));
                 if(player_score > 21 && !player_ace) {
-                    break;
+                    return;
                 }
                 else if(player_score > 21 && player_ace) {
                     player_score -= 10;
@@ -452,19 +468,22 @@ void game_loop() {
         switch(soft_hand_decision_matrix[player_score][dealer_score]) {
             case 0:
                 matrix.setCursor(1, 0);
-                matrix.print("You should stand");
+                matrix.print("Stand");
                 delay(5000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
-                break;
+                return;
             default:
                 matrix.setCursor(1, 0);
-                matrix.print("You should hit");
+                matrix.print("Hit");
                 delay(5000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
+                matrix.setCursor(1, 0);
+                matrix.println("Your\nturn");
                 recv_card();
                 pushPlayerCard();
+                matrix.fillScreen(matrix.Color333(0, 0, 0));
                 if(player_score > 21 && !player_ace) {
-                    break;
+                    return;
                 }
                 else if(player_score > 21 && player_ace) {
                     player_score -= 10;
@@ -472,4 +491,15 @@ void game_loop() {
                 game_loop();
         }
     }
+}
+
+void drawHeart() {
+  matrix.drawLine(6, 4, 12, 0, matrix.Color333(7, 0, 0));
+  matrix.drawLine(12, 0, 18, 4, matrix.Color333(7, 0, 0));
+  matrix.drawLine(18, 4, 20, 8, matrix.Color333(7, 0, 0));
+  matrix.drawLine(20, 8, 20, 14, matrix.Color333(7, 0, 0));
+  matrix.drawLine(20, 14, 12, 28, matrix.Color333(7, 0, 0));
+  matrix.drawLine(12, 28, 4, 14, matrix.Color333(7, 0, 0));
+  matrix.drawLine(4, 14, 4, 8, matrix.Color333(7, 0, 0));
+  matrix.drawLine(4, 8, 6, 4, matrix.Color333(7, 0, 0));
 }
