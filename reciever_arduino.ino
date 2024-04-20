@@ -88,25 +88,25 @@ void setup() {
 }
 
 void loop() {
-    matrix.print("Deal a player card:");
+    matrix.print("Player's turn");
     recv_card();
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     pushPlayerCard();
     
     matrix.setCursor(1, 0);
-    matrix.print("Deal a dealer card:");
+    matrix.print("Dealer's turn");
     recv_card();
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     pushDealerCard();
 
     matrix.setCursor(1, 0);
-    matrix.print("Deal a second player card:");
+    matrix.print("Player's turn");
     recv_card();
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     pushPlayerCard();
 
     matrix.setCursor(1, 0);
-    matrix.print("Deal a second dealer card:");
+    matrix.print("Dealer's turn");
     recv_card();
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     pushDealerCard();
@@ -117,6 +117,14 @@ void loop() {
 
     dealer_score = dealer_cards[0] + dealer_cards[1];
     
+    while(dealer_score < 17) {
+      matrix.print("Dealer's turn");
+      recv_card();
+      pushDealerCard();
+    }
+
+
+
     if(dealer_score > 21 && dealer_ace) {
         dealer_score -= 10;
     }
@@ -125,7 +133,7 @@ void loop() {
     if (player_score  > 21 && dealer_score > 21){
         //both bust
         matrix.setCursor(1, 0);
-        matrix.print("both bust");
+        matrix.print("You lose!");
     }
     else if (player_score < 21 && dealer_score < player_score) {
         //player wins
@@ -145,7 +153,7 @@ void loop() {
     else if (dealer_score > 21 && player_score < 21) {
         //dealer busts, player wins
         matrix.setCursor(1, 0);
-        matrix.print("both bust!");
+        matrix.print("You lose!");
     }
     
 }
@@ -232,13 +240,13 @@ void game_loop() {
         switch(hard_hand_decision_matrix[player_score][dealer_score]) {
             case 0:
                 matrix.setCursor(1, 0);
-                matrix.print("You should stand.");
+                matrix.print("You should stand");
                 delay(5000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
                 break;
             default:
                 matrix.setCursor(1, 0);
-                matrix.print("You should hit.");
+                matrix.print("You should hit");
                 delay(5000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
                 recv_card();
@@ -257,13 +265,13 @@ void game_loop() {
         switch(soft_hand_decision_matrix[player_score][dealer_score]) {
             case 0:
                 matrix.setCursor(1, 0);
-                matrix.print("You should stand.");
+                matrix.print("You should stand");
                 delay(5000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
                 break;
             default:
                 matrix.setCursor(1, 0);
-                matrix.print("You should hit.");
+                matrix.print("You should hit");
                 delay(5000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
                 recv_card();
