@@ -195,140 +195,174 @@ void start_war() {
         pushWarDealerCard();
     }
 
-    while (!war && !dealer_cards_war.empty() && num_player_cards > 0) {
-        matrix.setCursor(1, 0);
-        matrix.print("Play your card:");      
-        recv_card();
-        matrix.fillScreen(matrix.Color333(0, 0, 0));
-        pushWarPlayerCard();
-        int playerCardUp = player_cards_war.back();
-
-        int dealerCardUp = dealer_cards_war.front();
-        matrix.setCursor(1, 0);
-        sprintf(message, "%d\nvs\n%d", playerCardUp, dealerCardUp);
-        matrix.print(message);
-        delay(3000);    
-        matrix.fillScreen(matrix.Color333(0, 0, 0));
-        dealer_cards_war.remove(0);
-
-        deskCards.push_back(playerCardUp);
-        deskCards.push_back(dealerCardUp);
-
-        num_player_cards--;
-
-        if (playerCardUp != dealerCardUp)
-        {
-            if (playerCardUp > dealerCardUp) {
-                for (size_t i = 0; i < deskCards.size(); i++) {
-                  player_cards_war.push_back(deskCards.at(i));
-                }
-                matrix.setCursor(0, 0);
-                matrix.print("You\nwin\nthis\nround");      
-                delay(3000);
-                matrix.fillScreen(matrix.Color333(0, 0, 0));
-                num_player_cards += deskCards.size();
-            }
-            else {
-                for (size_t i = 0; i < deskCards.size(); i++) {
-                  dealer_cards_war.push_back(deskCards.at(i));
-                }
-            }
+    while (!dealer_cards_war.empty() && num_player_cards > 0) {
+        if (war) {
             matrix.setCursor(1, 0);
-            matrix.print("The\ngame\ngoes\non");      
-            delay(3000);
+            matrix.print("Play your card facedown:");      
+            recv_card();
             matrix.fillScreen(matrix.Color333(0, 0, 0));
-            deskCards.clear();
-        }
-        else {
-          matrix.setCursor(1, 0);
-          matrix.print("IT'S\nWAR\nTIME");      
-          delay(3000);
-          matrix.fillScreen(matrix.Color333(0, 0, 0));
-          war = true;
-        }
-    }
+            pushWarPlayerCard();
+            int playerCardDown = player_cards_war.back();
 
-    while (dealer_cards_war.size() > 1 && num_player_cards > 1){
-        matrix.setCursor(1, 0);
-        matrix.print("Play your card facedown:");      
-        recv_card();
-        matrix.fillScreen(matrix.Color333(0, 0, 0));
-        pushWarPlayerCard();
-        int playerCardDown = player_cards_war.back();
+            matrix.setCursor(1, 0);
+            matrix.print("Play your card faceup:");      
+            recv_card();
+            matrix.fillScreen(matrix.Color333(0, 0, 0));
+            pushWarPlayerCard();
+            int playerCardUp = player_cards_war.back();
 
-        matrix.setCursor(1, 0);
-        matrix.print("Play your card faceup:");      
-        recv_card();
-        matrix.fillScreen(matrix.Color333(0, 0, 0));
-        pushWarPlayerCard();
-        int playerCardUp = player_cards_war.back();
+            num_player_cards -= 2;
 
-        num_player_cards -= 2;
+            int dealerCardDown = dealer_cards_war.front();
+            matrix.setCursor(1, 0);
+            matrix.print("Dealer played facedown card");
+            delay(3000);  
+            matrix.fillScreen(matrix.Color333(0, 0, 0));
+            dealer_cards_war.remove(0);
 
-        int dealerCardDown = dealer_cards_war.front();
-        matrix.setCursor(1, 0);
-        matrix.print("Dealer played facedown card");
-        delay(3000);  
-        matrix.fillScreen(matrix.Color333(0, 0, 0));
-        dealer_cards_war.remove(0);
+            int dealerCardUp = dealer_cards_war.front();
+            printWarCard(playerCardUp, dealerCardUp);
+            delay(3000);    
+            matrix.fillScreen(matrix.Color333(0, 0, 0));
+            dealer_cards_war.remove(0);
 
-        int dealerCardUp = dealer_cards_war.front();
-        matrix.setCursor(1, 0);
-        sprintf(message, "%d\nvs\n%d", playerCardUp, dealerCardUp);
-        matrix.print(message);
-        delay(3000);    
-        matrix.fillScreen(matrix.Color333(0, 0, 0));
-        dealer_cards_war.remove(0);
+            deskCards.push_back(playerCardDown);
+            deskCards.push_back(playerCardUp);
+            deskCards.push_back(dealerCardDown);
+            deskCards.push_back(dealerCardUp);
 
-        deskCards.push_back(playerCardDown);
-        deskCards.push_back(playerCardUp);
-        deskCards.push_back(dealerCardDown);
-        deskCards.push_back(dealerCardUp);
-
-        if (playerCardUp != dealerCardUp) {
-            if (playerCardUp > dealerCardUp) {
-                for (size_t i = 0; i < deskCards.size(); i++) {
-                  player_cards_war.push_back(deskCards.at(i));
+            if (playerCardUp != dealerCardUp) {
+                if (playerCardUp > dealerCardUp) {
+                    for (size_t i = 0; i < deskCards.size(); i++) {
+                      player_cards_war.push_back(deskCards.at(i));
+                    }
+                    matrix.setCursor(1, 0);
+                    matrix.print("You\nwon\nthis\nwar");      
+                    delay(3000);
+                    matrix.fillScreen(matrix.Color333(0, 0, 0));
+                    num_player_cards += deskCards.size();
                 }
+                else {
+                    for (size_t i = 0; i < deskCards.size(); i++) {
+                      dealer_cards_war.push_back(deskCards.at(i));
+                    }
+                    matrix.setCursor(1, 0);
+                    matrix.print("You\nlost\nthis\nwar");      
+                    delay(3000);
+                    matrix.fillScreen(matrix.Color333(0, 0, 0));
+                }
+                deskCards.clear();
+                war = false;
+
+            }
+            else if (dealer_cards_war.empty()){
                 matrix.setCursor(1, 0);
-                matrix.print("You\nwon\nthis\nwar");      
+                matrix.print("DEALER\nEMPTY\nDECK");      
                 delay(3000);
                 matrix.fillScreen(matrix.Color333(0, 0, 0));
-                num_player_cards += deskCards.size();
+                matrix.setCursor(1, 0);
+                matrix.print("YOU\nWIN!");      
+                delay(3000);
+                matrix.fillScreen(matrix.Color333(0, 0, 0));
+                break;
+            }
+            else if (num_player_cards < 1) {
+                matrix.setCursor(1, 0);
+                matrix.print("PLAYER\nEMPTY\nDECK");      
+                delay(3000);
+                matrix.fillScreen(matrix.Color333(0, 0, 0));
+                matrix.setCursor(1, 0);
+                matrix.print("YOU\nLOSE!");      
+                delay(3000);
+                matrix.fillScreen(matrix.Color333(0, 0, 0));
+                break;
             }
             else {
-                for (size_t i = 0; i < deskCards.size(); i++) {
-                  dealer_cards_war.push_back(deskCards.at(i));
-                }
-                matrix.setCursor(1, 0);
-                matrix.print("You\nlost\nthis\nwar");      
-                delay(3000);
-                matrix.fillScreen(matrix.Color333(0, 0, 0));
+              matrix.setCursor(1, 0);
+              matrix.print("WAR\nGOES\nON");      
+              delay(3000);
+              matrix.fillScreen(matrix.Color333(0, 0, 0));
             }
-            deskCards.clear();
-            war = false;
         }
         else {
-          matrix.setCursor(1, 0);
-          matrix.print("IT'S\nWAR\nTIME");      
-          delay(3000);
-          matrix.fillScreen(matrix.Color333(0, 0, 0));
+            matrix.setCursor(1, 0);
+            matrix.print("Play your card:");      
+            recv_card();
+            matrix.fillScreen(matrix.Color333(0, 0, 0));
+            pushWarPlayerCard();
+            int playerCardUp = player_cards_war.back();
+
+            int dealerCardUp = dealer_cards_war.front();
+            printWarCard(playerCardUp, dealerCardUp);
+            delay(3000);    
+            matrix.fillScreen(matrix.Color333(0, 0, 0));
+            dealer_cards_war.remove(0);
+
+            deskCards.push_back(playerCardUp);
+            deskCards.push_back(dealerCardUp);
+
+            num_player_cards--;
+
+            if (playerCardUp != dealerCardUp)
+            {
+                if (playerCardUp > dealerCardUp) {
+                    for (size_t i = 0; i < deskCards.size(); i++) {
+                      player_cards_war.push_back(deskCards.at(i));
+                    }
+                    matrix.setCursor(0, 0);
+                    matrix.print("You\nwin\nthis\nround");      
+                    delay(3000);
+                    matrix.fillScreen(matrix.Color333(0, 0, 0));
+                    num_player_cards += deskCards.size();
+                }
+                else {
+                    for (size_t i = 0; i < deskCards.size(); i++) {
+                      dealer_cards_war.push_back(deskCards.at(i));
+                      matrix.setCursor(0, 0);
+                      matrix.print("You\nlose\nthis\nround");      
+                      delay(3000);
+                      matrix.fillScreen(matrix.Color333(0, 0, 0));
+                    }
+                }
+                matrix.setCursor(1, 0);
+                matrix.print("The\ngame\ngoes\non");      
+                delay(3000);
+                matrix.fillScreen(matrix.Color333(0, 0, 0));
+                deskCards.clear();
+            }
+            else {
+              matrix.setCursor(1, 0);
+              matrix.print("IT'S\nWAR\nTIME");      
+              delay(3000);
+              matrix.fillScreen(matrix.Color333(0, 0, 0));
+              war = true;
+            }
         }
     }
-
     if (dealer_cards_war.empty()) {
           matrix.setCursor(1, 0);
-          matrix.print("You\nwon!");      
+          matrix.print("DEALER\nEMPTY\nDECK");      
+          delay(3000);
+          matrix.fillScreen(matrix.Color333(0, 0, 0));
+          matrix.setCursor(1, 0);
+          matrix.print("YOU\nWIN!");      
           delay(3000);
           matrix.fillScreen(matrix.Color333(0, 0, 0));
     }
     else {
           matrix.setCursor(1, 0);
-          matrix.print("You\nlost!");      
+          matrix.print("PLAYER\nEMPTY\nDECK");      
+          delay(3000);
+          matrix.fillScreen(matrix.Color333(0, 0, 0));
+          matrix.setCursor(1, 0);
+          matrix.print("YOU\nLOSE!");      
           delay(3000);
           matrix.fillScreen(matrix.Color333(0, 0, 0));
     }
-
+    player_cards_war.clear();
+    dealer_cards_war.clear();
+    deskCards.clear();
+    war = false;
 }
 
 void recv_card() {
@@ -372,6 +406,47 @@ void showNewData() {
         matrix.print(receivedChars);
         newData = false;
     }
+}
+
+void printWarCard(int player_card, int dealer_card) {
+    char message[30];
+    char player_bits[4];
+    char dealer_bits[4];
+    switch (player_card) {
+        case 11: //ace
+            sprintf(player_bits, "%c", 'A');
+            break;
+        case 12: //jack
+            sprintf(player_bits, "%c", 'J');
+            break;
+        case 13: //queen
+            sprintf(player_bits, "%c", 'Q');
+            break;
+        case 14: //king
+            sprintf(player_bits, "%c", 'K');
+            break;
+        default:
+            sprintf(player_bits, "%d", player_card);
+    }
+    switch (dealer_card) {
+        case 11: //ace
+            sprintf(dealer_bits, "%c", 'A');
+            break;
+        case 12: //jack
+            sprintf(dealer_bits, "%c", 'J');
+            break;
+        case 13: //queen
+            sprintf(dealer_bits, "%c", 'Q');
+            break;
+        case 14: //king
+            sprintf(dealer_bits, "%c", 'K');
+            break;
+        default:
+            sprintf(dealer_bits, "%d", dealer_card);
+    }
+    matrix.setCursor(1, 0);
+    sprintf(message, "%d\nvs\n%d", player_bits, dealer_bits);
+    matrix.print(message);
 }
 
 void pushPlayerCard() {
