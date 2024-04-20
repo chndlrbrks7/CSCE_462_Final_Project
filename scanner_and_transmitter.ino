@@ -6,35 +6,36 @@ PN532_I2C pn532_i2c(Wire);
 NfcAdapter nfc = NfcAdapter(pn532_i2c);
 String tagId = "None";
 byte nuidPICC[4];
-
-#define transmitPin 2 // Define a digital pin for transmitting data
-
-void setup() {
-  pinMode(transmitPin, OUTPUT);
-  nfc.begin();
-  Serial.begin(1200);
+ 
+void setup(void) 
+{
+ Serial.begin(9600);
+ nfc.begin();
 }
-
-void loop() {
-  readNFC();
+ 
+void loop() 
+{
+ readNFC();
 }
+ 
+void readNFC() 
+{
 
-void readNFC() {
-  if (nfc.tagPresent()) {
+  if (nfc.tagPresent())
+  {
+    
     NfcTag tag = nfc.read();
-    String tagId = tag.getUidString();
-    Serial.println(tagId);
-
-    // Transmit the tag ID character by character
-    for (int i = 0; i < tagId.length(); i++) {
-      char ch = tagId.charAt(i);
-      digitalWrite(transmitPin, ch - '0'); // Convert ASCII character to integer
-      Serial.println(ch - '0');
-      delay(10); // Small delay between transmissions
+    NdefMessage message = tag.getNdefMessage();
+    NdefRecord record = message.getRecord(0);
+    int payloadLength = record.getPayloadLength();
+    byte payload[payloadLength];
+    record.getPayload(payload);
+    String payloadAsString = "";
+    for (int c = 3; c < payloadLength; c++) {
+      payloadAsString += (char)payload[c];
     }
-    digitalWrite(transmitPin, LOW); // Stop transmission
+    Serial.println("<" + payloadAsString + ">");
+
   }
   delay(1000);
 }
-
-
