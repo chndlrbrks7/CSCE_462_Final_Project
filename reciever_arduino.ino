@@ -106,17 +106,18 @@ void loop() {
     drawHeart();
     drawClub();
     recv_card();
-    /*blackjack_or_war();
-    
-    if (blackjack)
-        start_blackjack();
-    else {
-      start_war();
-    }*/
     
 }
 
 void start_blackjack() {
+    player_ace = false;
+    dealer_ace = false;
+    player_cards.clear();
+    dealer_cards.clear();
+    player_score = 0;
+    dealer_score = 0;
+
+
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     matrix.setCursor(1, 0);
 
