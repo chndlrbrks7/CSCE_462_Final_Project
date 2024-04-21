@@ -104,18 +104,27 @@ void loop() {
     drawSpade();
     drawDiamond();
     drawHeart();
+    drawClub();
     recv_card();
-    blackjack_or_war();
+    /*blackjack_or_war();
     
     if (blackjack)
         start_blackjack();
     else {
       start_war();
-    }
+    }*/
     
 }
 
 void start_blackjack() {
+    matrix.fillScreen(matrix.Color333(0, 0, 0));
+    matrix.setCursor(1, 0);
+
+    matrix.print("Game:\nBlack\njack");
+    delay(3000);
+
+    matrix.fillScreen(matrix.Color333(0, 0, 0));
+    matrix.setCursor(1, 0);
     matrix.print("Your\nturn");
     recv_card();
     matrix.fillScreen(matrix.Color333(0, 0, 0));
@@ -165,25 +174,30 @@ void start_blackjack() {
     if (player_score > 21){
         matrix.setCursor(1, 0);
         matrix.print("You\nlose!");
+        delay(5000);
     }
     else if (player_score <= 21 && dealer_score < player_score) {
         //player wins
         matrix.fillScreen(matrix.Color333(0, 0, 0));
         matrix.setCursor(1, 0);
         matrix.print("You\nwin!");
+        delay(5000);
     }
     else if (dealer_score >= 21 && player_score <= 21) {
         //dealer busts, player wins
         matrix.setCursor(1, 0);
         matrix.print("You\nwin!");
+        delay(5000);
     }
     else if (player_score <= 21 && player_score < dealer_score ) {
       matrix.setCursor(1,0);
       matrix.print("You\nlose!");
+      delay(5000);
     }
     else if (dealer_score == player_score) {
       matrix.setCursor(1, 0);
       matrix.print("Draw");
+      delay(5000);
     }
     else {
       char message[30];
@@ -194,6 +208,14 @@ void start_blackjack() {
 }
 
 void start_war() {
+    matrix.fillScreen(matrix.Color333(0, 0, 0));
+    matrix.setCursor(1, 0);
+
+    matrix.print("Game:\nWar");
+    delay(3000);
+
+    matrix.fillScreen(matrix.Color333(0, 0, 0));
+    matrix.setCursor(1, 0);
     char message[30];
     for (size_t i = 0; i < 26; i++) {
         matrix.setCursor(1, 0);
@@ -381,7 +403,14 @@ void recv_card() {
                     matrix.setCursor(1, 0);
                     matrix.print("Bad\nread\ntry\nagain");
                     recv_card();
-
+                  }
+                  else if(receivedChars[0] == 'W') {
+                    start_war();
+                    loop();
+                  }
+                  else if(receivedChars[0] == 'B') {
+                    start_blackjack();
+                    loop();
                   }
                   return;
               }
@@ -574,6 +603,28 @@ void drawHeart() {
 
     matrix.drawPixel(7, 28, matrix.Color333(1, 0, 0));
 
+}
+
+void drawClub() {
+    matrix.fillRect(16, 16, 17, 16, matrix.Color333(1, 0, 0));
+    matrix.fillRect(23, 18, 3, 8, matrix.Color333(0, 0, 0));
+    matrix.fillRect(20, 23, 3, 3, matrix.Color333(0, 0, 0));
+    matrix.fillRect(26, 23, 3, 3, matrix.Color333(0, 0, 0));
+    matrix.fillRect(23, 27, 3, 2, matrix.Color333(0, 0, 0));
+
+    matrix.fillRect(22, 19, 1, 2, matrix.Color333(0, 0, 0));
+    matrix.fillRect(26, 19, 1, 2, matrix.Color333(0, 0, 0));
+
+    matrix.fillRect(21, 22, 2, 1, matrix.Color333(0, 0, 0));
+    matrix.fillRect(26, 22, 2, 1, matrix.Color333(0, 0, 0));
+
+    matrix.fillRect(21, 26, 2, 1, matrix.Color333(0, 0, 0));
+    matrix.fillRect(26, 26, 2, 1, matrix.Color333(0, 0, 0));
+
+    matrix.drawPixel(24, 26, matrix.Color333(0, 0, 0));
+
+    matrix.drawPixel(22, 28, matrix.Color333(0, 0, 0));
+    matrix.drawPixel(26, 28, matrix.Color333(0, 0, 0));
 }
 
 void printWarCard(int player_card, int dealer_card) {
