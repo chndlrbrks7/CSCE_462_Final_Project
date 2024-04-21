@@ -77,7 +77,6 @@ int num_player_cards = 26;
 bool player_ace = false;
 int dealer_score = 0;
 bool dealer_ace = false;
-bool blackjack = true;
 bool war = false;
 
 boolean newData = false;
@@ -158,6 +157,11 @@ void start_blackjack() {
 
     dealer_score = dealer_cards[0] + dealer_cards[1];
 
+    if(dealer_score > 21 && dealer_ace) {
+        dealer_score -= 10;
+        dealer_ace = false;
+    }
+
     while(dealer_score < 17) {
       matrix.setCursor(1, 0);
       matrix.print("House\nturn");
@@ -166,11 +170,6 @@ void start_blackjack() {
       matrix.fillScreen(matrix.Color333(0, 0, 0));
       delay(3000);
     }
-
-    if(dealer_score > 21 && dealer_ace) {
-        dealer_score -= 10;
-    }
-
 
     if (player_score > 21){
         matrix.setCursor(1, 0);
@@ -184,13 +183,13 @@ void start_blackjack() {
         matrix.print("You\nwin!");
         delay(5000);
     }
-    else if (dealer_score >= 21 && player_score <= 21) {
+    else if (dealer_score > 21 && player_score < 21) {
         //dealer busts, player wins
         matrix.setCursor(1, 0);
         matrix.print("You\nwin!");
         delay(5000);
     }
-    else if (player_score <= 21 && player_score < dealer_score ) {
+    else if (player_score < 21 && player_score < dealer_score ) {
       matrix.setCursor(1,0);
       matrix.print("You\nlose!");
       delay(5000);
@@ -209,6 +208,11 @@ void start_blackjack() {
 }
 
 void start_war() {
+    player_cards_war.clear();
+    dealer_cards_war.clear();
+    deskCards.clear();
+    war = false;
+
     matrix.fillScreen(matrix.Color333(0, 0, 0));
     matrix.setCursor(1, 0);
 
@@ -437,15 +441,16 @@ void pushPlayerCard() {
         player_cards.push_back(atoi(receivedChars));
         player_score += atoi(receivedChars);
     }
-    else if (atoi(receivedChars) == '11') { //ace case
+    else if (atoi(receivedChars) == 11) { //ace case
         if(player_score + 11 > 21) {
             player_cards.push_back(1);
             player_score += 1;
-            player_ace = true;
         }
-        player_cards.push_back(11);
-        player_score += 11;
-        player_ace = true;
+        else {
+          player_cards.push_back(11);
+          player_score += 11;
+          player_ace = true;
+        }
     }
     else {
         player_cards.push_back(10);
@@ -459,10 +464,17 @@ void pushDealerCard() {
       dealer_cards.push_back(atoi(receivedChars));
       value = atoi(receivedChars);
   }
-  else if (atoi(receivedChars) == '11') { //ace case
-      dealer_cards.push_back(11);
-      dealer_ace = true;
-      value = 11;
+  else if (atoi(receivedChars) == 11) { //ace case
+      if(dealer_score + 11 > 21) {
+        player_cards.push_back(1);
+        value = 1;
+      }
+      else {
+        dealer_cards.push_back(11);
+        dealer_ace = true;
+        value = 11;
+      }
+      
   }
   else {
       dealer_cards.push_back(10);
@@ -479,12 +491,6 @@ void pushWarDealerCard() {
 
 void pushWarPlayerCard() {
   player_cards_war.push_back(atoi(receivedChars));
-}
-
-void blackjack_or_war() {
-  if (receivedChars[0] == 'W')
-      blackjack = false;
-  // blackjack true by default
 }
 
 void game_loop() {
@@ -512,6 +518,7 @@ void game_loop() {
                 }
                 else if(player_score > 21 && player_ace) {
                     player_score -= 10;
+                    player_ace = false;
                 }
                 game_loop();
 
@@ -540,6 +547,7 @@ void game_loop() {
                 }
                 else if(player_score > 21 && player_ace) {
                     player_score -= 10;
+                    player_ace = false;
                 }
                 game_loop();
         }
@@ -635,19 +643,15 @@ void printWarCard(int player_card, int dealer_card) {
     matrix.setCursor(1, 0);
     switch (player_card) {
         case 11: //ace
-            //sprintf(player_bits, "%c", 'A');
             matrix.print("Ace");
             break;
         case 12: //jack
-            //sprintf(player_bits, "%c", 'J');
             matrix.print("Jack");
             break;
         case 13: //queen
-            //sprintf(player_bits, "%c", 'Q');
             matrix.print("Queen");
             break;
         case 14: //king
-            //sprintf(player_bits, "%c", 'K');
             matrix.print("King");
             break;
         default:
